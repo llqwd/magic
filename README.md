@@ -9,7 +9,7 @@
 
 ​	（/filecp）是重命名为filecp的意思
 
-<img src="C:\Users\ZhuanZ（无密码）\Pictures\Screenshots\屏幕截图 2026-01-29 140909.png" alt="屏幕截图 2026-01-29 140909" style="zoom:80%;" />
+<img src="[C:\Users\ZhuanZ（无密码）\Pictures\Screenshots\屏幕截图 2026-01-29 140909.png](https://github.com/llqwd/magic/blob/picture/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-01-29%20140909.png)" alt="屏幕截图 2026-01-29 140909" style="zoom:80%;" />
 
 ​	rmdir:删除空目录   rm -r:删除非空目录
 
