@@ -53,6 +53,8 @@
 
 ```Linux
 ssh -p 22 user@host
+ssh -l [user] hostname
+ssh hostname
 ```
 
 ​    -p：指定端口号    user：登录的用户名    host：登录的主机。(22为默认端口号)
