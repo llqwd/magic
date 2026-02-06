@@ -57,15 +57,18 @@
   + Page Up / Page Down :滚动页面。
   + Ctrl+ A :光标移到行首。
   + Ctrl+ E :光标移到行尾。
+
 4.剪切、复制和粘贴：
 
   + Ctrl+ K :剪切（删除）。
   + Ctrl+ U :复制文本。
   + Ctrl+ Shift + V :粘贴文本。
+
 5.查找和替换：
 
   + Ctrl+ W :查找。
   + Ctrl+ \ :替换.
+
 6.撤销和重做：
 
   + Ctrl+ Shift + Z :撤销。
