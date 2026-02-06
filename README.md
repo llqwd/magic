@@ -86,7 +86,13 @@ ssh hostname
 
 ​    -p：指定端口号    user：登录的用户名    host：登录的主机。(22为默认端口号)
 
-​	tbc…
++ ### 挂载复制u盘
+
+  1. 先查看新磁盘：
+  sudo fdisk -l 从而找到新磁盘地址
+  2. 新建挂载点：
+  mkdir /mnt/data（可自定义路径
+  
 
 
 
