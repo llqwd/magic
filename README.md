@@ -92,6 +92,9 @@ ssh hostname
   sudo fdisk -l 从而找到新磁盘地址
   2. 新建挂载点：
   mkdir /mnt/data（可自定义路径
+  <img src="https://github.com/llqwd/magic/blob/main/Screenshots/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260206124844_225_2.jpg" alt="挂载u盘1" style="zoom:80%;" />
+  <img src="https://github.com/llqwd/magic/blob/main/Screenshots/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260206124843_224_2.jpg" alt="挂载u盘2" style="zoom:80%;" />
+（挂载可参考b站视频https://www.bilibili.com/video/BV1534y1F7Uu/?spm_id_from=333.337.search-card.all.click&vd_source=0f90f2fa90be4f490a6243549c4fbe7f
   
 
 
