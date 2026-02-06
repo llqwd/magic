@@ -1,5 +1,5 @@
 # 一、Linux
-* #### 基础语句
+* ### 基础语句
 
   cd：进入目录  pwd：显示路径  ls：查看文件等
 
@@ -43,11 +43,35 @@
 
 （还不会就看这个视频https://www.bilibili.com/video/BV1hw411z7Eh/?spm_id_from=333.337.search-card.all.click&vd_source=0f90f2fa90be4f490a6243549c4fbe7f
 
-+ #### nano基本用法
++ ### nano基本用法
 
 ​	-l：行号   -m：用鼠标点击或滚动   +n：跳转到第n行
 
-+ #### ssh
+1.保存文件：Ctrl+ O,然后按 Enter 键。
+
+2.退出编辑器：Ctrl+ X
+
+3.移动光标：
+
+  + 箭头键（上、下、左、右）:移动光标。
+  + Page Up / Page Down :滚动页面。
+  + Ctrl+ A :光标移到行首。
+  + Ctrl+ E :光标移到行尾。
+4.剪切、复制和粘贴：
+
+  + Ctrl+ K :剪切（删除）。
+  + Ctrl+ U :复制文本。
+  + Ctrl+ Shift + V :粘贴文本。
+5.查找和替换：
+
+  + Ctrl+ W :查找。
+  + Ctrl+ \ :替换。
+6.撤销和重做：
+
+  + Ctrl+ Shift + Z :撤销。
+  + Ctrl+ Shift + R :重做。
+
++ ### ssh
 
 ​	ping (ip地址) 判断是否联通
 
