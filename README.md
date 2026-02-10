@@ -104,7 +104,7 @@ ssh hostname
 
   ```python
   import cv2
-  inport matplotlib.pyplot as plt
+  import matplotlib.pyplot as plt
   import numpy as np
   %matplotlib inline
 
@@ -119,6 +119,7 @@ ssh hostname
     cv2.waitKey(0)
     cv2.destroyALLWindows()
   ```
+  
   
   
 
