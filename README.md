@@ -100,6 +100,17 @@ ssh hostname
 ## 1，python
 ### 基础语句
 
++ 读取图像
+
+  ```python
+  import cv2
+  inport matplotlib.pyplot as plt
+  import numpy as np
+  %matplotlib inline
+
+  img=cv2.imread('cat.jpg')
+  ```
+
 + 显示图像
   
   ```python
@@ -107,6 +118,7 @@ ssh hostname
     cv2.imshow(name,img)
     cv2.waitKey(0)
     cv2.destroyALLWindows()
+  ```
   
   
 
