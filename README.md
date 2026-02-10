@@ -110,6 +110,7 @@ ssh hostname
 
   img=cv2.imread('cat.jpg')
   ```
+  其中`cv2.IMREAD_COLOR`是彩色图像 `cv2.IMREAD_GRAYSCALE`是灰度图像
 
 + 显示图像
   
@@ -119,7 +120,14 @@ ssh hostname
     cv2.waitKey(0)
     cv2.destroyALLWindows()
   ```
-  
+
++ 读取数值
+  `img.shape`会得到图像属性(h,w,c)
+
++ 图像保存
+  ```python
+  cv2.imwrite('mycat.png',img)
+  ```
   
   
 
