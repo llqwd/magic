@@ -97,12 +97,12 @@ ssh hostname
 （挂载可参考b站视频https://www.bilibili.com/video/BV1534y1F7Uu/?spm_id_from=333.337.search-card.all.click&vd_source=0f90f2fa90be4f490a6243549c4fbe7f
 
 # 二、opencv
-+++
 ## 1，python
 ### 基础语句
 
 + 显示图像
-  '''python
+  
+  ```python
   def cv_show(name,img):
     cv2.imshow(name,img)
     cv2.waitKey(0)
