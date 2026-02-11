@@ -151,9 +151,26 @@ ssh hostname
 
   `cv2.moveWindow(name, x, y)`:将名为`name`窗口移动到(x,y)处
 
-+ 处理像素与通道
-
-
++ 处理像素与通道(彩色图变灰度图)
+  ```python
+  import cv2
+  import numpy as np
+  
+  img = cv2.imread("test.jpg")
+  h, w, c = img.shape
+  
+  # 遍历每个像素，计算三通道均值并替换
+  for y in range(h):
+      for x in range(w):
+          b, g, r = img[y, x]
+          average = int((b + g + r) / 3)
+          img[y, x] = [average, average, average]
+          # 三通道都设为均值
+  
+  cv2.imshow("Average Image", img)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
 
 
 
