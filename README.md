@@ -126,24 +126,24 @@ ssh hostname
   def resize_image(img, width, height):
     return cv2.resize(img,(width,height),interpolation=cv2.INTER_AREA)
 
-resized_img = resize_image(img, 400, 300)
-#设定屏幕尺寸
-screen_width,screen_height=1920,1080
-img_w,img_h=resized_img,shape[1],resized_img.shape[0]
-#四个角坐标
-positions = {
-     "左上角": (0, 0),
-     "右上角": (screen_width - img_w, 0),
-     "左下角": (0, screen_height - img_h),
-     "右下角": (screen_width - img_w, screen_height - img_h)
- }
- #显示在四个角
- for name, (x, y) in positions.items():
-     cv2.namedWindow(name, cv2.WINDOW_NORMAL)
-     cv2.moveWindow(name, x, y)
-     cv2.imshow(name, resized_img)
-     cv2.waitKey(0)
-     cv2.destroyAllWindows()
+  resized_img = resize_image(img, 400, 300)
+  #设定屏幕尺寸
+  screen_width,screen_height=1920,1080
+  img_w,img_h=resized_img,shape[1],resized_img.shape[0]
+  #四个角坐标
+  positions = {
+       "左上角": (0, 0),
+       "右上角": (screen_width - img_w, 0),
+       "左下角": (0, screen_height - img_h),
+       "右下角": (screen_width - img_w, screen_height - img_h)
+   }
+   #显示在四个角
+   for name, (x, y) in positions.items():
+       cv2.namedWindow(name, cv2.WINDOW_NORMAL)
+       cv2.moveWindow(name, x, y)
+       cv2.imshow(name, resized_img)
+       cv2.waitKey(0)
+       cv2.destroyAllWindows()
   ```
   `cv2.namedWindow(name, cv2.WINDOW_NORMAL)`:创建一个名为`name`的窗口
     + cv2.WINDOW_NORMAL：允许手动调整大小
