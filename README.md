@@ -121,7 +121,7 @@ ssh hostname
   ```
   
 + 在四角显示图片
-  ```python
+```python
   #调整图片大小（例如到400*300
   def resize_image(img, width, height):
     return cv2.resize(img,(width,height),interpolation=cv2.INTER_AREA)
