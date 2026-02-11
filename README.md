@@ -121,7 +121,7 @@ ssh hostname
   ```
   
 + 在四角显示图片
-```python
+  ```python
   #调整图片大小（例如到400*300
   def resize_image(img, width, height):
     return cv2.resize(img,(width,height),interpolation=cv2.INTER_AREA)
@@ -144,11 +144,12 @@ positions = {
      cv2.imshow(name, resized_img)
      cv2.waitKey(0)
      cv2.destroyAllWindows()
-```
-`cv2.namedWindow(name, cv2.WINDOW_NORMAL)`:创建一个名为`name`的窗口
-  + cv2.WINDOW_NORMAL：允许手动调整大小
-  + cv2.WINDOW_AUTOSIZE：固定大小无法调整
-`cv2.moveWindow(name, x, y)`:将名为`name`窗口移动到(x,y)处
+  ```
+  `cv2.namedWindow(name, cv2.WINDOW_NORMAL)`:创建一个名为`name`的窗口
+    + cv2.WINDOW_NORMAL：允许手动调整大小
+    + cv2.WINDOW_AUTOSIZE：固定大小无法调整
+
+  `cv2.moveWindow(name, x, y)`:将名为`name`窗口移动到(x,y)处
 
 + 处理像素与通道
 
