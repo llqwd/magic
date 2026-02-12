@@ -202,7 +202,7 @@ ssh hostname
   ```
 + Gamma矫正
   + 为什么：屏幕并非线性输出所以显示器显示图像时，本身会变暗；人眼对暗部更敏感
-  + 矫正公式：$O = \left( \frac{I}{255} \right)^{\gamma} \times 255$
+  + 矫正公式： $ O = \left( \frac{I}{255} \right)^{\gamma} \times 255 $
     I:原像素值（0-255）
     γ：伽马系数（γ<1图像变亮
     O：矫正后的像素
