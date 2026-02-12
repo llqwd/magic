@@ -171,12 +171,62 @@ ssh hostname
   cv2.waitKey(0)
   cv2.destroyAllWindows()
   ```
-
-
-
-
-
-
++ 深拷贝与浅拷贝
+  浅拷贝
+  ```python
+  import copy
+  c=copy.copy(a)
+  ```
+  深拷贝
+  ```python
+  import copy
+  d=copy.deepcopy(a)
+  ```
+  **区别：修改浅拷贝会影响原图 但是深拷贝不影响**
++ 通道分离
+  ```python
+  import cv2
+  import numpy as np
+  
+  img = cv2.imread("test.jpg")
+  
+  # 分离 BGR 通道
+  b, g, r = cv2.split(img)
+  
+  # 显示每个通道
+  cv2.imshow("Blue Channel", b)
+  cv2.imshow("Green Channel", g)
+  cv2.imshow("Red Channel", r)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
+# Gamma矫正
+  # 为什么：屏幕并非线性输出所以显示器显示图像时，本身会变暗；人眼对暗部更敏感
+  # 矫正公式：$$O=(I/255)^^γ*255$$
+    I:原像素值（0-255）
+    γ：伽马系数（γ<1图像变亮
+    O：矫正后的像素
+  # 代码实现
+  ```python
+  import cv2
+  import numpy as np
+  
+  def gamma_correct(img, gamma=1.0):
+      # 1. 构建 Gamma 映射表
+      inv_gamma = 1.0 / gamma
+      table = np.array([((i/255.0) ** inv_gamma) * 255 for i in np.arange(256)]).astype("uint8")
+      
+      # 2. 应用查表
+      return cv2.LUT(img, table)
+  
+  img = cv2.imread("test.jpg")
+  img_gamma = gamma_correct(img, gamma=2.2)  # 标准gamma
+  
+  cv2.imshow("original", img)
+  cv2.imshow("gamma", img_gamma)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
 
 
 
