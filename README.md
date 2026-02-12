@@ -202,7 +202,7 @@ ssh hostname
   ```
 + Gamma矫正
   + 为什么：屏幕并非线性输出所以显示器显示图像时，本身会变暗；人眼对暗部更敏感
-  + 矫正公式：$$ O=(I/255)^^γ*255 $$
+  + 矫正公式：$ O=(I/255)^^γ*255 $
     I:原像素值（0-255）
     γ：伽马系数（γ<1图像变亮
     O：矫正后的像素
@@ -215,7 +215,8 @@ ssh hostname
       # 1. 构建 Gamma 映射表
       inv_gamma = 1.0 / gamma
       table = np.array([((i/255.0) ** inv_gamma) * 255 for i in np.arange(256)]).astype("uint8")
-      
+      #.astype("uint8"):将计算结果转化为0-255范围内数
+  
       # 2. 应用查表
       return cv2.LUT(img, table)
   
