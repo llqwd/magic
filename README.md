@@ -129,7 +129,7 @@ ssh hostname
   resized_img = resize_image(img, 400, 300)
   #设定屏幕尺寸
   screen_width,screen_height=1920,1080
-  img_w,img_h=resized_img,shape[1],resized_img.shape[0]
+  img_w,img_h=resized_img.shape[1],resized_img.shape[0]
   #四个角坐标
   positions = {
        "左上角": (0, 0),
