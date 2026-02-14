@@ -231,10 +231,104 @@ ssh hostname
   cv2.waitKey(0)
   cv2.destroyAllWindows()
   ```
++ HSV
+  H：色相。红色为0°，蓝色约为240°
+  S:饱和度。0为灰度，255为最亮
+  V：明度。0为纯黑，255为最亮
+  代码实现：
+  ```python
+  import cv2
+  import numpy as np
+  
+  # 1. 读取图片并转换到HSV
+  img = cv2.imread("dog.jpg")
+  hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+  # 表明从RGB转化为HSV并返回hsv三维数组
+  
+  # 2. 定义颜色范围（OpenCV中H:0-179, S:0-255, V:0-255）
+  # 红色（注意：红色在HSV中分布在0°和180°附近，需要两段范围）
+  lower_red1 = np.array([0, 120, 70])
+  upper_red1 = np.array([10, 255, 255])
+  lower_red2 = np.array([170, 120, 70])
+  upper_red2 = np.array([180, 255, 255])
+  
+  # 蓝色
+  lower_blue = np.array([100, 120, 70])
+  upper_blue = np.array([130, 255, 255])
+  
+  # 3. 使用inRange提取掩膜
+  mask_red1 = cv2.inRange(hsv, lower_red1, upper_red1)
+  mask_red2 = cv2.inRange(hsv, lower_red2, upper_red2)
+  mask_red = cv2.bitwise_or(mask_red1, mask_red2)  # 合并两段红色范围
+  
+  mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
+  
+  # 4. 提取对应颜色区域
+  res_red = cv2.bitwise_and(img, img, mask=mask_red)
+  res_blue = cv2.bitwise_and(img, img, mask=mask_blue)
+  
+  # 5. 显示结果
+  cv2.imshow("Original", img)
+  cv2.imshow("Red Extracted", res_red)
+  cv2.imshow("Blue Extracted", res_blue)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
 
-
-
-
-
++ 绘图功能
+  ```python
+  import cv2
+  import numpy as np
+  
+  # 创建一个黑色背景的图像 (高度400, 宽度600, 3通道BGR)
+  img = np.zeros((400, 600, 3), dtype=np.uint8)
+  
+  # -------------------------- 1. 画点 --------------------------
+  # 函数: cv2.circle()
+  # 参数:
+  #   img: 要绘制的图像
+  #   center: 点的坐标 (x, y)
+  #   radius: 半径 (画点时设为1或2)
+  #   color: 颜色 (B, G, R) 格式，如 (0, 0, 255) 表示红色
+  #   thickness: 线条粗细，-1表示填充
+  cv2.circle(img, center=(100, 100), radius=2, color=(0, 0, 255), thickness=-1)  # 红色点
+  
+  # -------------------------- 2. 画线 --------------------------
+  # 函数: cv2.line()
+  # 参数:
+  #   img: 要绘制的图像
+  #   pt1: 起点坐标 (x1, y1)
+  #   pt2: 终点坐标 (x2, y2)
+  #   color: 颜色 (B, G, R)
+  #   thickness: 线条粗细
+  cv2.line(img, pt1=(200, 100), pt2=(400, 100), color=(0, 255, 0), thickness=2)  # 绿色线
+  
+  # -------------------------- 3. 画圆 --------------------------
+  # 函数: cv2.circle()
+  # 参数:
+  #   img: 要绘制的图像
+  #   center: 圆心坐标 (x, y)
+  #   radius: 半径
+  #   color: 颜色 (B, G, R)
+  #   thickness: 线条粗细，-1表示填充圆
+  cv2.circle(img, center=(300, 200), radius=50, color=(255, 0, 0), thickness=2)  # 蓝色空心圆
+  
+  # -------------------------- 4. 画矩形 --------------------------
+  # 函数: cv2.rectangle()
+  # 参数:
+  #   img: 要绘制的图像
+  #   pt1: 左上角坐标 (x1, y1)
+  #   pt2: 右下角坐标 (x2, y2)
+  #   color: 颜色 (B, G, R)
+  #   thickness: 线条粗细，-1表示填充矩形
+  cv2.rectangle(img, pt1=(450, 150), pt2=(550, 250), color=(0, 255, 255), thickness=-1)  # 黄色填充矩形
+  
+  # 显示图像
+  cv2.imshow("Drawing", img)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ``` 
++ 腐蚀、膨胀、开运算和闭运算
+  https://www.bilibili.com/video/BV1zBCAYdEWd/?spm_id_from=333.337.search-card.all.click&vd_source=0f90f2fa90be4f490a6243549c4fbe7f
 
 
