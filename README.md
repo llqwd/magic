@@ -331,4 +331,89 @@ ssh hostname
 + 腐蚀、膨胀、开运算和闭运算
   https://www.bilibili.com/video/BV1zBCAYdEWd/?spm_id_from=333.337.search-card.all.click&vd_source=0f90f2fa90be4f490a6243549c4fbe7f
 
++ canny边际
+  本质是通过像素值的骤变来判断边界
+  优化：
+  https://blog.csdn.net/lw18781108072/article/details/78974362?ops_request_misc=elastic_search_misc&request_id=9bb3b5b76431deb350f79221336bebdb&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-78974362-null-null.142^v102^pc_search_result_base3&utm_term=canny%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B&spm=1018.2226.3001.4187
 
++ 硬币连通域标记与重心绘制
+  重要函数：
+  1.`cv2.threshould(...)`
+  < img src="https://github.com/llqwd/magic/blob/main/Screenshots/6e177f20552543e17a98cd2b02740b80.jpg" width="50%" alt="描述">
+  2.`cv2.morphologyEx(...)
+  ```python
+  import cv2
+  import numpy as np
+  
+  # 假设你已经得到了binary图像
+  kernel = np.ones((3,3), np.uint8)  # 定义结构元素（核）
+  
+  # 开运算：去除文字周围的小亮点噪点
+  opening = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
+  
+  # 闭运算：填充文字内部的小暗孔洞
+  closing = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
+  
+  # 形态学梯度：提取文字的边缘
+  gradient = cv2.morphologyEx(binary, cv2.MORPH_GRADIENT, kernel)
+  ```
+  
+  ```python
+  import cv2
+  import numpy as np
+  img = cv2.imread("coins.jpg")
+  gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #转为灰度图
+  
+  # ---------------------- 3. 二值化 ----------------------
+  # cv2.threshold：二值化函数
+  # 参数1：灰度图
+  # 参数2：阈值（这里用0表示自动计算）
+  # 参数3：最大值255
+  # 参数4：二值化方式：反二值化 + 大津法自动求阈值（函数中对应
+  # 返回值：自动计算的阈值thresh，二值图像binary
+  thresh, binary = cv2.threshold(gray, 0, 255,
+      cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+  
+  # ---------------------- 4. 形态学开运算去噪 ----------------------
+  # 生成[[1. 1. 1.]
+         [1. 1. 1.]
+         [1. 1. 1.]]
+  kernel = np.ones((3, 3), np.uint8)
+  binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
+  
+  # ---------------------- 5. 连通域分析 ----------------------
+  # cv2.connectedComponentsWithStats：带统计信息的连通域检测
+  # 参数1：二值图
+  # 参数2：connectivity=8 表示8邻域连通
+  # 返回4个值：
+  # num_labels：连通域总数（含背景）
+  # labels：每个像素所属的连通域编号
+  # stats：每个连通域的信息（x,y,w,h,面积）
+  # centroids：每个连通域的重心坐标 (cx, cy)
+  num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(
+      binary, connectivity=8
+  )
+  
+  # ---------------------- 6. 遍历每个硬币，画重心 ----------------------
+  coin_count = 0
+  # 从1开始，跳过背景0
+  for i in range(1, num_labels):
+      # 取出第i个连通域的重心
+      cx, cy = centroids[i]
+  
+      # cv2.circle：画圆（这里用来画点）
+      # 参数1：要画的图像
+      # 参数2：圆心坐标 (int(cx), int(cy))
+      # 参数3：半径5
+      # 参数4：颜色(0,255,255) BGR→黄
+      # 参数5：thickness=-1 表示实心
+      cv2.circle(img, (int(cx), int(cy)), 5, (0, 255, 255), -1)
+  
+      coin_count += 1
+  
+  # ---------------------- 7. 显示结果 ----------------------
+  print("硬币数量：", coin_count)
+  cv2.imshow("Result", img)
+  cv2.waitKey(0)       # 等待按键
+  cv2.destroyAllWindows() # 关闭所有窗口
+  ```
