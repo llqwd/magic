@@ -338,9 +338,12 @@ ssh hostname
 
 + 硬币连通域标记与重心绘制
   重要函数：
+  
   1.`cv2.threshould(...)`
+  
   < img src="https://github.com/llqwd/magic/blob/main/Screenshots/6e177f20552543e17a98cd2b02740b80.jpg" width="50%" alt="描述">
-  2.`cv2.morphologyEx(...)
+
+  2.`cv2.morphologyEx(...)`
   ```python
   import cv2
   import numpy as np
@@ -417,3 +420,49 @@ ssh hostname
   cv2.waitKey(0)       # 等待按键
   cv2.destroyAllWindows() # 关闭所有窗口
   ```
++ 回形针
+
+  ```python
+  import cv2
+  import numpy as np
+  
+  # 1. 读取图像
+  img = cv2.imread("paperclips.jpg")
+  # 2. 转灰度
+  gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  # 3. 二值化
+  thresh, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+  
+  # ---------------------- 轮廓检测 ----------------------
+  # cv2.findContours：查找轮廓
+  # 参数1：二值图
+  # 参数2：cv2.RETR_EXTERNAL 只检测最外层轮廓
+  # 参数3：cv2.CHAIN_APPROX_SIMPLE 压缩轮廓点，节省内存
+  # 返回值：contours 是所有轮廓的列表
+  contours, hierarchy = cv2.findContours(
+      binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+  )
+  
+  # 遍历每个轮廓
+  for cnt in contours:
+      # cv2.drawContours：画轮廓
+      # 参数1：原图
+      # 参数2：轮廓列表
+      # 参数3：-1表示画所有
+      # 参数4：颜色(0,0,255) 红
+      # 参数5：线条粗细2
+      cv2.drawContours(img, [cnt], -1, (0, 0, 255), 2)
+  
+      # cv2.convexHull：求凸包（包裹轮廓的最小凸多边形）
+      hull = cv2.convexHull(cnt)
+      # 画凸包，绿色
+      cv2.drawContours(img, [hull], -1, (0, 255, 0), 2)
+  
+  print("回形针数量：", len(contours))
+  cv2.imshow("Contours & Convex Hull", img)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
+
++ 调用摄像头
+  
