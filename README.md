@@ -464,5 +464,100 @@ ssh hostname
   cv2.destroyAllWindows()
   ```
 
-+ 调用摄像头
++ 人像美容
+  ```python
+  import cv2
+  import numpy as np
   
+  img = cv2.imread("face.jpg")
+  
+  # ---------------------- 双边滤波去皱纹 ----------------------
+  # cv2.bilateralFilter：双边滤波（平滑图像，去除噪声同时，保留边缘信息 ）
+  # 参数1：原图
+  # 参数2：d 滤波直径
+  # 参数3：sigmaColor 颜色相似度
+  # 参数4：sigmaSpace 空间相似度
+  beauty = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)
+  #空间相似度和颜色相似度设置得都比较大意味着滤波效果较强，能有效平滑皮肤机理同时保留五官等重要边缘
+  
+  # ---------------------- 生成瑕疵掩膜 ----------------------
+  mask = np.zeros(img.shape[:2], np.uint8)
+  # 手动标记几个痘区域
+  mask[100:120, 200:220] = 255
+  mask[150:170, 250:270] = 255
+  
+  # ---------------------- 图像修复去痘 ----------------------
+  # cv2.inpaint：图像修复
+  # 参数1：待修复图
+  # 参数2：掩膜（白色表示要修复）
+  # 参数3：修复半径(指的是算法在修复时会参考周围3像素半径的信息)
+  # 参数4：修复算法
+  result = cv2.inpaint(beauty, mask, 3, cv2.INPAINT_TELEA)
+  
+  cv2.imshow("Original", img)
+  cv2.imshow("Beauty", result)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
+  
++ 滑动调节二值化
+  ```python
+  import cv2
+  import numpy as np
+  
+  # 滑动条回调函数
+  # val：当前滑动条的值
+  def on_trackbar(val):
+      # 二值化
+      aaa, binary = cv2.threshold(gray, val, 255, cv2.THRESH_BINARY)
+      cv2.imshow("Binary", binary)
+  
+  # 读取并转灰度
+  img = cv2.imread("coins.jpg")
+  gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  
+  # 创建窗口
+  cv2.namedWindow("Binary")
+  
+  # ---------------------- 创建滑动条 ----------------------
+  # cv2.createTrackbar：创建滑动条
+  # 参数1：滑动条名
+  # 参数2：窗口名
+  # 参数3：初始值127
+  # 参数4：最大值255
+  # 参数5：回调函数
+  cv2.createTrackbar("Threshold", "Binary", 127, 255, on_trackbar)
+  
+  # 初始化调用一次
+  on_trackbar(127)
+  
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
+ + 鼠标获取颜色
+  ```python
+  import cv2
+  import numpy as np
+  
+  # 鼠标回调函数
+  # event：事件类型
+  # x,y：坐标
+  # flags：按键状态
+  # param：用户传入参数
+  def mouse_callback(event, x, y, flags, param):
+      # 左键按下
+      if event == cv2.EVENT_LBUTTONDOWN:
+          # 若按下左键，则取出该点颜色 BGR
+          b, g, r = img[y, x]
+          print(f"坐标({x},{y})  B={b} G={g} R={r}")
+  
+  img = cv2.imread("coins.jpg")
+  cv2.namedWindow("Image")
+  
+  cv2.setMouseCallback("Image", mouse_callback)
+  #在Image这个窗口上发生任何鼠标时间opencv都会自动调用这个函数
+  
+  cv2.imshow("Image", img)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
