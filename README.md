@@ -561,3 +561,18 @@ ssh hostname
   cv2.waitKey(0)
   cv2.destroyAllWindows()
   ```
+
++ ROI区域提取
+  ```python
+  import cv2
+  
+  img = cv2.imread("multi_objects.jpg")
+  
+  # ---------------------- ROI截取 ----------------------
+  # 图像切片：图像[ y起始:y结束, x起始:x结束 ]
+  roi = img[50:250, 50:250]
+  
+  cv2.imshow("ROI", roi)
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  ```
